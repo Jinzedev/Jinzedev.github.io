@@ -3,7 +3,7 @@ title: 关于
 hide_table_of_contents: true
 ---
 
-<img src="https://readme-typing-svg.demolab.com?font=Righteous&size=32&duration=3000&pause=1000&color=8F7FD3DE&vCenter=true&repeat=false&width=435&lines=Hello!+Welecom+to+Jinze+!" alt="Typing SVG" />
+<img src="https://readme-typing-svg.demolab.com?font=Righteous&size=32&duration=3000&pause=1000&color=8F7FD3DE&vCenter=true&repeat=false&width=435&lines=Hello!+Welcome+to+Jinze's Blog+!" alt="Typing SVG" />
 
 
 ## 🤖关于
