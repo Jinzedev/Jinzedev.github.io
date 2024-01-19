@@ -59,6 +59,7 @@ const config = {
           showReadingTime: true,
           blogSidebarTitle: '文章列表',
           postsPerPage: 'ALL',
+
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
