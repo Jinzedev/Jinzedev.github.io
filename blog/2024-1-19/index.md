@@ -1,7 +1,6 @@
 ---
 slug: qian-gua
 title: 乾卦详解
-
 authors: [Jinze]
 tags: [易经, 乾卦, 国学]
 ---
