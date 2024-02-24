@@ -5,13 +5,7 @@
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
 import {
-    dracula,
-    duotoneDark,
-    jettwaveDark,
-    nightOwl,
-    oceanicNext,
-    okaidia, shadesOfPurple, synthwave84,
-    themes as prismThemes, ultramin, vsDark
+    themes as prismThemes
 } from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
@@ -57,6 +51,7 @@ const config = {
                     editUrl:
                         'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
                 },
+
                 blog: {
                     showReadingTime: true,
                     blogSidebarTitle: '文章列表',
@@ -77,7 +72,7 @@ const config = {
     ],
 
     themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+        /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
         ({
             // Replace with your project's social card
             image: 'img/docusaurus-social-card.jpg',
@@ -98,9 +93,16 @@ const config = {
                         type: 'docSidebar',
                         sidebarId: 'tutorialSidebar',
                         position: 'left',
-                        label: '笔记',
+                        label: '📑笔记',
                     },
-                    {to: '/blog', label: '博客', position: 'left'},
+                    {
+
+                        to: '/docs/story',
+                        label: '✍️瞎写的小说',
+                        sidebarId: 'interview',
+                        position: 'left'
+                    },
+                    { to: 'blog', label: '😸博客', position: 'left' },
                     {
                         href: 'https://github.com/jinzedev',
                         label: 'GitHub',
@@ -118,6 +120,22 @@ const config = {
                 darkTheme: prismThemes.vsDark,
             },
         }),
+    plugins: [
+        [
+            'docusaurus-plugin-image-zoom',
+            {
+                selector: '.markdown :not(em) > img',
+                background: {
+                    light: 'rgb(255, 255, 255)',
+                    dark: 'rgb(50, 50, 50)',
+                },
+            },
+        ],
+
+        '@docusaurus/plugin-ideal-image',
+
+
+    ]
 };
 
 export default config;
