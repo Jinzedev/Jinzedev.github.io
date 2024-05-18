@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmy_blog=self.webpackChunkmy_blog||[]).push([[6999],{8619:s=>{s.exports=JSON.parse('{"label":"heap","permalink":"/docs/tags/heap","allTagsPath":"/docs/tags","count":1,"items":[{"id":"notes/Rust/\u6808\u3001\u5806","title":"\u6808\u3001\u5806","description":"\u6808","permalink":"/docs/notes/Rust/\u6808\u3001\u5806"}],"unlisted":false}')}}]);
