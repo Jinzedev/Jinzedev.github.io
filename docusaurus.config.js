@@ -98,7 +98,7 @@ const config = {
                     {
 
                         to: '/docs/story',
-                        label: '✍️瞎写的小说',
+                        label: '✍️瞎写',
                         sidebarId: 'interview',
                         position: 'left'
                     },
