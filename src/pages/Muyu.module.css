@@ -1,0 +1,283 @@
+.container {
+    position: relative;
+    background-color: #1d1a1a;
+    color: white;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.counter {
+    font-size: 110px;
+    margin-bottom: 5px;
+}
+
+.description {
+    font-size: 24px;
+    color: gray;
+    margin-top: -10px; /* 调整功德和数字之间的间距 */
+}
+
+.muyuContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.muyuGroup {
+    position: relative;
+}
+
+.muyuIcon {
+    width: 150px;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
+.stickIcon {
+    position: absolute;
+    top: -20px;
+    left: -40px;
+    width: 120px;
+    transition: transform 0.3s ease;
+}
+
+.stickHitAnimation {
+    transform: rotate(15deg);
+}
+
+.hitAnimation {
+    transform: scale(1.3);
+}
+
+.bonusText {
+    display: inline-block;
+    position: absolute;
+    top: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    color: white;
+    text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.3);
+    animation: textFade 1.2s ease-out forwards;
+    white-space: nowrap;
+}
+
+@keyframes textFade {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-25px);
+    }
+}
+
+.clickText {
+    font-size: 16px;
+    color: gray;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.switchOptionsContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.option {
+    font-size: 16px;
+
+}
+
+.optionLabel {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.dialog {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 8px;
+    color: white;
+    margin-top: 20px;
+}
+.switchContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 控制开关与标签的间距 */
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: gray;
+    transition: 0.4s;
+    border-radius: 25px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 19px;
+    width: 19px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #474141; /* 选中时的背景颜色，可以根据需求更改 */
+}
+
+input:checked + .slider:before {
+    transform: translateX(25px);
+}
+
+.optionLabel {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ccc;
+}
+
+/* Overlay 背景模糊和遮罩 */
+.dialogOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 999;
+}
+
+/* Dialog 居中显示 */
+.dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #333;
+    padding: 30px;
+    border-radius: 8px;
+    color: white;
+    z-index: 1000;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+    width: 90%;
+    max-width: 400px;
+}
+
+.dialogContent {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+/* 改进后的对话框按钮样式 */
+.dialog button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    background-color: gray;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    outline: none;
+}
+
+.dialog button:hover {
+    background-color: #272626;  /* 按钮悬停的深蓝色 */
+}
+
+.dialog button + button {
+    margin-left: 10px;  /* 按钮之间的间距 */
+}
+
+/* 自定义输入框样式 */
+.dialog input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    font-size: 16px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #222;
+    color: #fff;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.dialog input[type="text"]:focus {
+    border-color: #1d1a1a;  /* 输入框聚焦时的颜色变化 */
+}
+
+/* 改进单选按钮组样式 */
+.dialogContent label {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;  /* 控制文字与单选按钮之间的间距 */
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.dialogContent label input {
+    transform: scale(1.2);  /* 放大单选按钮以便更好点击 */
+}
+
+/* 调整标题的样式 */
+.dialog h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 1.5em;
+    text-align: center;
+}
+.option {
+    background-color: transparent;  /* 将背景色设置为透明 */
+    border: none;                   /* 移除边框 */
+    color: #ccc; /* 设置按钮的文字颜色 */
+    font-size: 20px;
+    cursor: pointer;                /* 鼠标悬停时显示手型 */
+    padding: 5px 10px;              /* 添加适当的内边距，增加点击区域 */
+    text-decoration: underline;     /* 添加下划线以示点击链接样式 */
+    font-weight: bold;              /* 加粗字体 */
+    transition: color 0.3s ease;    /* 添加颜色过渡效果 */
+}
+
+.option:hover {
+    color: #fff;  /* 鼠标悬停时文字颜色变为白色 */
+}
