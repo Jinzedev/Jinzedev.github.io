@@ -101,7 +101,7 @@ const config = {
                         position: 'left'
                     },
                     { to: 'blog', label: '😸博客', position: 'left' },
-                    {to: 'muyu', label: '🐟电子木鱼', position: 'left'},
+                    {to: 'Muyu', label: '🐟电子木鱼', position: 'left'},
                     {
                         href: 'https://github.com/jinzedev',
                         label: 'GitHub',
