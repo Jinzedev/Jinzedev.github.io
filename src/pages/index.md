@@ -21,4 +21,6 @@ email: <a href="mailto:1791209985@qq.com" target="_blank" rel="noopener noreferr
 <br/>
 <a href="https://blog.me0w00f.tech/" target="_blank" rel="noopener noreferrer">Me0w00f Technology</a>
 <br/>
+<a href="https://doomwatcher2004.github.io/" target="_blank" rel="noopener noreferrer">冷少的 Blog</a>
+<br/>
 <a href="https://flapypan.top/" target="_blank" rel="noopener noreferrer">腾包子的点心铺</a>
