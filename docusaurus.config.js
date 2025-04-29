@@ -95,9 +95,8 @@ const config = {
                     },
                     {
 
-                        to: '/docs/story',
-                        label: '✍️瞎写',
-
+                        to: '/docs/Godot',
+                        label: 'godot学习',
                         position: 'left'
                     },
                     { to: 'blog', label: '😸博客', position: 'left' },
