@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmy_blog=self.webpackChunkmy_blog||[]).push([[1872],{8687:o=>{o.exports=JSON.parse('{"label":"Godot","permalink":"/en/docs/tags/godot","allTagsPath":"/en/docs/tags","count":1,"items":[{"id":"Godot/index","title":"Godot","description":"godot","permalink":"/en/docs/Godot/"}],"unlisted":false}')}}]);
