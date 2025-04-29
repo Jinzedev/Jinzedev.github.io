@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="zh-cn" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-Godot/节点之间的通信：信号" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.1.1">
+<title data-rh="true">节点之间的通信：信号（Signals） | Jinze</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="http://Jinzedev.github.io/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="http://Jinzedev.github.io/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="http://Jinzedev.github.io/docs/Godot/节点之间的通信：信号"><meta data-rh="true" property="og:locale" content="zh_cn"><meta data-rh="true" property="og:locale:alternate" content="en"><meta data-rh="true" name="docusaurus_locale" content="zh-cn"><meta data-rh="true" name="docsearch:language" content="zh-cn"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="节点之间的通信：信号（Signals） | Jinze"><meta data-rh="true" name="description" content="------"><meta data-rh="true" property="og:description" content="------"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="http://Jinzedev.github.io/docs/Godot/节点之间的通信：信号"><link data-rh="true" rel="alternate" href="http://Jinzedev.github.io/docs/Godot/节点之间的通信：信号" hreflang="zh-cn"><link data-rh="true" rel="alternate" href="http://Jinzedev.github.io/en/docs/Godot/节点之间的通信：信号" hreflang="en"><link data-rh="true" rel="alternate" href="http://Jinzedev.github.io/docs/Godot/节点之间的通信：信号" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="Jinze RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Jinze Atom Feed"><link rel="stylesheet" href="/assets/css/styles.49675b12.css">
+<script src="/assets/js/runtime~main.5e364fdf.js" defer="defer"></script>
+<script src="/assets/js/main.ad1dab16.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"dark")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><div class="navbar__logo"><img src="/img/logo.svg" alt="My Site Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/img/logo.svg" alt="My Site Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">槿泽</b></a><a class="navbar__item navbar__link" href="/docs/notes/hi">📑笔记</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/docs/Godot">godot学习</a><a class="navbar__item navbar__link" href="/blog">😸博客</a><a class="navbar__item navbar__link" href="/Muyu">🐟电子木鱼</a></div><div class="navbar__items navbar__items--right"><a href="https://github.com/jinzedev" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="切换浅色/暗黑模式（当前为暗黑模式）" aria-label="切换浅色/暗黑模式（当前为暗黑模式）" aria-live="polite"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/Godot/godot">godota安装</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/Godot/godot节点与场景">节点与场景</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/Godot/节点生命周期">节点生命周期</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" href="/docs/Godot/节点之间的通信：信号">节点之间的通信：信号（Signals）</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/Godot/">Godot</a></li></ul></nav><button type="button" title="收起侧边栏" aria-label="收起侧边栏" class="button button--secondary button--outline collapseSidebarButton_PEFL"><svg width="20" height="20" aria-hidden="true" class="collapseSidebarButtonIcon_kv0_"><g fill="#7a7a7a"><path d="M9.992 10.023c0 .2-.062.399-.172.547l-4.996 7.492a.982.982 0 01-.828.454H1c-.55 0-1-.453-1-1 0-.2.059-.403.168-.551l4.629-6.942L.168 3.078A.939.939 0 010 2.528c0-.548.45-.997 1-.997h2.996c.352 0 .649.18.828.45L9.82 9.472c.11.148.172.347.172.55zm0 0"></path><path d="M19.98 10.023c0 .2-.058.399-.168.547l-4.996 7.492a.987.987 0 01-.828.454h-3c-.547 0-.996-.453-.996-1 0-.2.059-.403.168-.551l4.625-6.942-4.625-6.945a.939.939 0 01-.168-.55 1 1 0 01.996-.997h3c.348 0 .649.18.828.45l4.996 7.492c.11.148.168.347.168.55zm0 0"></path></g></svg></button></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_z5aJ"><div class="docItemContainer_c0TR"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">节点之间的通信：信号（Signals）</span><meta itemprop="position" content="1"></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><h1>节点之间的通信：信号（Signals）</h1>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="1-什么是信号signal">1. 什么是信号（Signal）？<a href="#1-什么是信号signal" class="hash-link" aria-label="1. 什么是信号（Signal）？的直接链接" title="1. 什么是信号（Signal）？的直接链接">​</a></h2>
+<p><strong>信号</strong>就是一种<strong>消息通知机制</strong>，
+允许一个节点在发生某些事情时，通知其他节点。</p>
+<p>✅ 信号是<strong>松耦合</strong>的，发送者不需要知道接收者是谁，只负责广播。</p>
+<hr>
+<p><strong>🧱 理解比喻</strong></p>
+<p>想象：</p>
+<ul>
+<li>一个按钮节点就像一个广播站。</li>
+<li>当按钮被按下时，它发出广播：「我被按了！」</li>
+<li>其他节点（比如玩家角色）只要<strong>订阅</strong>了这个广播，就能立刻收到通知，并采取行动（比如跳起来）。</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="2-为什么需要信号">2. 为什么需要信号？<a href="#2-为什么需要信号" class="hash-link" aria-label="2. 为什么需要信号？的直接链接" title="2. 为什么需要信号？的直接链接">​</a></h2>
+<ul>
+<li>
+<p>传统直接调用函数：</p>
+<ul>
+<li>A节点必须知道B节点存在 ➔ 紧耦合 ➔ 扩展困难</li>
+</ul>
+<p>使用信号：</p>
+<ul>
+<li>A节点只发广播，不管有没有人接收 ➔ 松耦合 ➔ 结构清晰、维护容易</li>
+</ul>
+<p>✅ 比如：玩家靠近门口，Area2D只需要广播「有人进来了」，不用关心是谁接收。</p>
+</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="3-godot-信号的使用步骤">3. Godot 信号的使用步骤<a href="#3-godot-信号的使用步骤" class="hash-link" aria-label="3. Godot 信号的使用步骤的直接链接" title="3. Godot 信号的使用步骤的直接链接">​</a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>步骤</th><th>动作</th><th>示例</th></tr></thead><tbody><tr><td>1</td><td>定义信号（可选）</td><td><code>signal health_depleted</code></td></tr><tr><td>2</td><td>发送信号</td><td><code>EmitSignal(&quot;health_depleted&quot;)</code></td></tr><tr><td>3</td><td>连接信号</td><td>在编辑器或代码里连接到其他节点的方法</td></tr><tr><td>4</td><td>响应信号</td><td>被连接的方法自动执行</td></tr></tbody></table>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="4-最常用的内置信号">4. 最常用的内置信号<a href="#4-最常用的内置信号" class="hash-link" aria-label="4. 最常用的内置信号的直接链接" title="4. 最常用的内置信号的直接链接">​</a></h2>
+<p>Godot自带很多节点的内置信号，比如：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>节点类型</th><th>信号</th><th>含义</th></tr></thead><tbody><tr><td>Button</td><td><code>pressed()</code></td><td>按钮被点击</td></tr><tr><td>Area2D</td><td><code>body_entered</code></td><td>有物体进入检测区域</td></tr><tr><td>Timer</td><td><code>timeout()</code></td><td>定时器时间到</td></tr></tbody></table>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="5-信号实际例子结合godot界面">5. 信号实际例子（结合Godot界面）<a href="#5-信号实际例子结合godot界面" class="hash-link" aria-label="5. 信号实际例子（结合Godot界面）的直接链接" title="5. 信号实际例子（结合Godot界面）的直接链接">​</a></h2>
+<hr>
+<p>为了更好理解，我们用一个最常见的实际场景：</p>
+<blockquote>
+<p><strong>【例子：玩家点击按钮后，让角色跳跃】</strong></p>
+</blockquote>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-第一步搭建场景含角色内部结构">📌 第一步：搭建场景（含角色内部结构）<a href="#-第一步搭建场景含角色内部结构" class="hash-link" aria-label="📌 第一步：搭建场景（含角色内部结构）的直接链接" title="📌 第一步：搭建场景（ 含角色内部结构）的直接链接">​</a></h3>
+<ol>
+<li>创建一个新场景，根节点是 <code>Node2D</code>，命名为 <code>MainScene</code>。</li>
+<li>添加两个子节点：
+<ul>
+<li>一个 <code>Button</code> 节点，命名为 <code>JumpButton</code></li>
+<li>一个 <code>CharacterBody2D</code> 节点，命名为 <code>Player</code></li>
+</ul>
+</li>
+<li><strong>继续给 Player 添加两个子节点：</strong>
+<ul>
+<li><code>Sprite2D</code> ➔ 显示角色的图像</li>
+<li><code>CollisionShape2D</code> ➔ 定义角色的碰撞边界</li>
+</ul>
+</li>
+</ol>
+<p>最终的场景树结构如下：</p>
+<div class="language-scss codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#9CDCFE;--prism-background-color:#1E1E1E"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-scss codeBlock_bY9V thin-scrollbar" style="color:#9CDCFE;background-color:#1E1E1E"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#9CDCFE"><span class="token plain">MainScene (Node2D)</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain"> ├── JumpButton (Button)</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain"> └── Player (CharacterBody2D)</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">      ├── Sprite2D</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">      └── CollisionShape2D</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p><strong>🔍 解释：</strong></p>
+<ul>
+<li><strong>Sprite2D</strong>：
+<ul>
+<li>用来展示角色图像（贴图）</li>
+<li>需要在右侧 <code>Texture</code> 属性里加载一张角色 PNG 图片(这里我们拖动icon.svg到Texture)</li>
+</ul>
+</li>
+<li><strong>CollisionShape2D</strong>：
+<ul>
+<li>必须添加一个形状（例如 <code>RectangleShape2D</code>，形状应贴合角色，大小一般是比我们角色小一点）</li>
+<li>没有这个，角色无法与地面碰撞，<code>MoveAndSlide()</code> 也不会生效</li>
+<li>（其实有没有CollisionShape2D无所谓，因为我们这次demo不牵扯碰撞🤣，我写的原因是正常项目还是会牵扯到碰撞，当学习了</li>
+</ul>
+</li>
+</ul>
+<p>✅ 所以 Player 需要这两个子节点才能“看得见 + 碰得到 + 跳得起”。</p>
+<p><img decoding="async" loading="lazy" alt="Sprite2D添加图像" src="/assets/images/Sprite2D添加图像-d4f9a738d41fcce95780bf3303541dfa.png" width="2560" height="1528" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="CollisionShape2D添加形状" src="/assets/images/CollisionShape2D添加形状-f3ca5f4a6bbdc07a33acc3fc6c6d30d6.png" width="2560" height="1528" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="按钮添加文字" src="/assets/images/按钮添加文字-3c7ac37d93a8d87ca3083f6272cd3cf8.png" width="2560" height="1528" class="img_ev3q"></p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-第二步用-godot-编辑器连接信号如果没有脚本就顺便创建">📌 第二步：用 Godot 编辑器连接信号（如果没有脚本，就顺便创建）<a href="#-第二步用-godot-编辑器连接信号如果没有脚本就顺便创建" class="hash-link" aria-label="📌 第二步：用 Godot 编辑器连接信号（如果没有脚本，就顺便创建）的直接链接" title="📌 第二步：用 Godot 编辑器连接信号（ 如果没有脚本，就顺便创建）的直接链接">​</a></h3>
+<ol>
+<li><strong>选中 <code>JumpButton</code> 节点</strong></li>
+<li>打开右边「节点（Node）」面板</li>
+<li>找到 <code>pressed()</code> 信号</li>
+<li>右键点击 ➔ 选择「连接（Connect）」</li>
+<li>在弹出的窗口：
+<ul>
+<li>【接收节点（Receiver）】选择 <code>Player</code></li>
+</ul>
+</li>
+<li>如果 <code>Player</code> 还<strong>没有挂脚本</strong>，Godot 会提示你需要创建脚本：
+<ul>
+<li>选中<code>Player</code>节点</li>
+<li>点击「附加脚本（Attach Script）」</li>
+<li>跳出新建脚本窗口：
+<ul>
+<li>路径一般是 <code>res://Player.cs</code></li>
+<li>语言选择 C#</li>
+<li>父类默认是 <code>CharacterBody2D</code></li>
+</ul>
+</li>
+<li>点击「创建（Create）」</li>
+<li>返回上面创建信号步骤</li>
+</ul>
+</li>
+</ol>
+<p>✅ Godot 会自动在 <code>Player</code> 的脚本里生成一个方法框架（c#没有，需要手动创建）！</p>
+<p>在脚本中创建代码为</p>
+<div class="language-c# codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#9CDCFE;--prism-background-color:#1E1E1E"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-c# codeBlock_bY9V thin-scrollbar" style="color:#9CDCFE;background-color:#1E1E1E"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#9CDCFE"><span class="token plain">// 名字与创建信号的名字要一致	</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">private void _on_jump_button_pressed()</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">{</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">		</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">}</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p><img decoding="async" loading="lazy" alt="JumpButton创建pressed信号" src="/assets/images/JumpButton创建pressed信号-af5ea5fc437bdaf031b0e5c4cb04e1bb.png" width="2560" height="1528" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="创建pressed信号过程" src="/assets/images/创建pressed信号过程-9e3710efd9f5f34e0b5b440bb30685c2.png" width="1040" height="797" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="为Player节点创建脚本" src="/assets/images/为Player节点创建脚本-c1cfdd90de6d829d7d596388aa1247e4.png" width="416" height="388" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="创建脚本过程" src="/assets/images/创建脚本过程-b42ba4e51c43d6c584e438861acb06fc.png" width="807" height="690" class="img_ev3q"></p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-第三步在-player-脚本里填写跳跃逻辑">📌 第三步：在 Player 脚本里填写跳跃逻辑<a href="#-第三步在-player-脚本里填写跳跃逻辑" class="hash-link" aria-label="📌 第三步：在 Player 脚本里填写跳跃逻辑的直接链接" title="📌 第三步：在 Player 脚本里填写跳跃逻辑的直接链接">​</a></h3>
+<div class="language-c# codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#9CDCFE;--prism-background-color:#1E1E1E"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-c# codeBlock_bY9V thin-scrollbar" style="color:#9CDCFE;background-color:#1E1E1E"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#9CDCFE"><span class="token plain">using Godot;</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">using System;</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">/// &lt;summary&gt;</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">///  玩家角色控制脚本，负责处理跳跃和重力逻辑,继承自 CharacterBody2D。</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">///  CharacterBody2D 是 Godot 专门给2D角色运动用的节点类型，可以自动处理物理、碰撞。</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">/// &lt;/summary&gt;</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">public partial class Player : CharacterBody2D</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">{</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    // 跳跃速度（负号代表向上跳, 在 Godot 的2D坐标系里，Y轴向下是正方向，向上是负方向）。</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    public const float JumpVelocity = -400.0f;</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    </span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    // 角色当前速度</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    Vector2 velocity = Vector2.Zero;</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    </span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    public override void _PhysicsProcess(double delta)</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    {</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">       velocity += GetGravity() * (float)delta;</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">       Velocity = velocity;</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">       MoveAndSlide();</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    }</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    </span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    /// &lt;summary&gt;</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    ///  当跳跃按钮被按下时调用，触发角色跳跃动作。</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    /// &lt;/summary&gt;</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    private void _on_jump_button_pressed()</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    {</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">       GD.Print(&quot;按钮被点击了，角色准备跳跃！&quot;);</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">       velocity.Y = JumpVelocity;</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">       </span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    }</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">}</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>详解：</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="1-类定义部分">1. 类定义部分<a href="#1-类定义部分" class="hash-link" aria-label="1. 类定义部分的直接链接" title="1. 类定义部分的直接链接">​</a></h4>
+<div class="language-c# codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#9CDCFE;--prism-background-color:#1E1E1E"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-c# codeBlock_bY9V thin-scrollbar" style="color:#9CDCFE;background-color:#1E1E1E"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#9CDCFE"><span class="token plain">using Godot;</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">using System;</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">public partial class Player : CharacterBody2D</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">{</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>✅ 意思是：</p>
+<ul>
+<li>使用 Godot 的核心库 (<code>using Godot;</code>)。</li>
+<li>定义了一个 C# 类 <code>Player</code>，继承自 <code>CharacterBody2D</code>。</li>
+<li><code>partial</code> 表示这个类可能会和Godot引擎底层一起补充（Godot4规范）。</li>
+</ul>
+<p><code>CharacterBody2D</code> 是 Godot 专门给2D角色运动用的节点类型，可以自动处理物理、碰撞。</p>
+<hr>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="2-定义跳跃速度">2. 定义跳跃速度<a href="#2-定义跳跃速度" class="hash-link" aria-label="2. 定义跳跃速度的直接链接" title="2. 定义跳跃速度的直接链接">​</a></h4>
+<div class="language-c# codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#9CDCFE;--prism-background-color:#1E1E1E"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-c# codeBlock_bY9V thin-scrollbar" style="color:#9CDCFE;background-color:#1E1E1E"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#9CDCFE"><span class="token plain">// 跳跃速度（向上）</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">public const float JumpVelocity = -400.0f;</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>✅ 意思是：</p>
+<ul>
+<li>定义一个<strong>常量</strong>，叫做 <code>JumpVelocity</code>，值是 <code>-400</code>。</li>
+<li>负号代表<strong>向上跳</strong>（在 Godot 的2D坐标系里，Y轴向下是正方向，向上是负方向）。</li>
+</ul>
+<p>比如：</p>
+<ul>
+<li><code>velocity.Y = -400</code> 就意味着角色瞬间获得一个向上的初速度。</li>
+</ul>
+<hr>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="3-定义角色速度变量">3. 定义角色速度变量<a href="#3-定义角色速度变量" class="hash-link" aria-label="3. 定义角色速度变量的直接链接" title="3. 定义角色速度变量的直接链接">​</a></h4>
+<div class="language-c# codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#9CDCFE;--prism-background-color:#1E1E1E"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-c# codeBlock_bY9V thin-scrollbar" style="color:#9CDCFE;background-color:#1E1E1E"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#9CDCFE"><span class="token plain">// 角色当前速度</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">Vector2 velocity = Vector2.Zero;</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>✅ 意思是：</p>
+<ul>
+<li>创建了一个 2D 向量 <code>velocity</code>，初始值是 <code>(0, 0)</code>。</li>
+<li>这个 <code>velocity</code> 代表角色当前的速度（包括水平速度和垂直速度）。</li>
+<li>后面跳跃、下落都是通过修改这个 <code>velocity</code>。</li>
+</ul>
+<hr>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="4每帧更新物理逻辑">4.每帧更新物理逻辑<a href="#4每帧更新物理逻辑" class="hash-link" aria-label="4.每帧更新物理逻辑的直接链接" title="4.每帧更新物理逻辑的直接链接">​</a></h4>
+<div class="language-c# codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#9CDCFE;--prism-background-color:#1E1E1E"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-c# codeBlock_bY9V thin-scrollbar" style="color:#9CDCFE;background-color:#1E1E1E"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#9CDCFE"><span class="token plain">public override void _PhysicsProcess(double delta)</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">{</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">	velocity += GetGravity() * (float)delta;</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">	</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">	Velocity = velocity;</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">	MoveAndSlide();</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">}</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>✅ 详细解释：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>行</th><th>含义</th></tr></thead><tbody><tr><td><code>velocity += GetGravity() * (float)delta;</code></td><td>每一帧给速度增加<strong>重力</strong>，让角色有下落的感觉</td></tr><tr><td><code>Velocity = velocity;</code></td><td>把自己维护的速度传给 <code>CharacterBody2D</code> 内置的 <code>Velocity</code> 变量</td></tr><tr><td><code>MoveAndSlide();</code></td><td>Godot 帮你根据速度移动角色，并自动处理碰撞</td></tr></tbody></table>
+<p>🔵 小补充：</p>
+<ul>
+<li><code>GetGravity()</code> 是 <code>CharacterBody2D</code>自带的方法，它返回游戏世界设定的重力（比如900）。</li>
+<li><code>delta</code> 是帧间隔时间，乘以 delta 是为了<strong>保持不同帧率下动作平滑</strong>（标准写法）。</li>
+</ul>
+<p><strong>➔ 这段逻辑的作用是：</strong></p>
+<ul>
+<li>角色在没有跳跃的情况下，每帧受到重力，自动向下掉。</li>
+</ul>
+<hr>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="5-按下按钮时触发跳跃">5. 按下按钮时触发跳跃<a href="#5-按下按钮时触发跳跃" class="hash-link" aria-label="5. 按下按钮时触发跳跃的直接链接" title="5. 按下按钮时触发跳跃的直接链接">​</a></h4>
+<div class="language-c# codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#9CDCFE;--prism-background-color:#1E1E1E"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-c# codeBlock_bY9V thin-scrollbar" style="color:#9CDCFE;background-color:#1E1E1E"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#9CDCFE"><span class="token plain">private void _on_jump_button_pressed()</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">{</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">	GD.Print(&quot;按钮被点击了，角色准备跳跃！&quot;);</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">	velocity.Y = JumpVelocity;</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">}</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>✅ 详细解释：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>行</th><th>含义</th></tr></thead><tbody><tr><td><code>_on_jump_button_pressed()</code></td><td>这是接收 JumpButton 的 pressed() 信号的函数</td></tr><tr><td><code>GD.Print(&quot;按钮被点击了，角色准备跳跃！&quot;);</code></td><td>打印一条提示信息到Godot控制台</td></tr><tr><td><code>velocity.Y = JumpVelocity;</code></td><td>给角色一个向上的速度，产生跳跃效果</td></tr></tbody></table>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="-这一套逻辑串起来是这样的">🎯 这一套逻辑串起来是这样的：<a href="#-这一套逻辑串起来是这样的" class="hash-link" aria-label="🎯 这一套逻辑串起来是这样的：的直接链接" title="🎯 这一套逻辑串起来是这样的：的直接链接">​</a></h3>
+<ol>
+<li>每帧自动加重力 ➔ 角色自然下落</li>
+<li>当玩家点击按钮时 ➔ 给一个向上的速度</li>
+<li>速度变化 ➔ 角色跳起来</li>
+<li>MoveAndSlide() ➔ 根据速度移动角色，并处理地面的碰撞</li>
+</ol>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="运行测试">✅运行测试<a href="#运行测试" class="hash-link" aria-label="✅运行测试的直接链接" title="✅运行测试的直接链接">​</a></h3>
+<p>点击运行按钮，再界面测试即可</p>
+<p><img decoding="async" loading="lazy" alt="运行按钮" src="/assets/images/运行按钮-a9a0abfc64c051d8f82f1e6f34d12536.png" width="2521" height="1521" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="测试界面" src="/assets/images/测试界面-158310913eb62aad82c517f2dc7587c2.png" width="1174" height="766" class="img_ev3q"></p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-小提醒">📚 小提醒<a href="#-小提醒" class="hash-link" aria-label="📚 小提醒的直接链接" title="📚 小提醒的直接链接">​</a></h2>
+<ul>
+<li><strong>JumpButton</strong> 只负责发出「pressed」信号，不自己执行跳跃动作。</li>
+<li><strong>Player</strong> 负责接收信号并响应（跳跃）。</li>
+<li>角色跳跃本质是：
+➔ 给 Y 轴方向加一个负速度，然后通过 MoveAndSlide() 让角色跳起来。</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-小总结">✅ 小总结<a href="#-小总结" class="hash-link" aria-label="✅ 小总结的直接链接" title="✅ 小总结的直接链接">​</a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>内容</th><th>说明</th></tr></thead><tbody><tr><td>发射信号</td><td>Button 节点通过 pressed() 信号发出点击事件</td></tr><tr><td>接收信号</td><td>Player 节点接收 pressed() 信号并响应（执行跳跃逻辑）</td></tr><tr><td>跳跃实现</td><td>修改 Player 的 velocity，使用 MoveAndSlide() 让角色跳跃</td></tr><tr><td>Sprite2D作用</td><td>Sprite2D用于显示角色的外观，需要指定贴图 Texture</td></tr><tr><td>CollisionShape2D作用</td><td>CollisionShape2D定义角色的物理碰撞范围，虽然本例可以不加，但正式项目中必须有</td></tr><tr><td>测试运行流程</td><td>点击界面上的运行按钮，进入场景测试角色跳跃效果</td></tr></tbody></table>
+<hr>
+<p>✅ 本章小结核心要点：</p>
+<ul>
+<li>节点通信通过「信号机制」完成，松耦合设计，结构清晰。</li>
+<li>角色节点需要搭配 Sprite2D（外观）+ CollisionShape2D（碰撞）才能正常完整。</li>
+<li>连接信号时，接收节点需要挂载脚本并手动实现响应方法（C#）。</li>
+<li>逻辑开发完成后，需要运行测试确认实际效果。</li>
+</ul>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-小练习信号与跳跃机制复习题">📖 小练习：信号与跳跃机制复习题<a href="#-小练习信号与跳跃机制复习题" class="hash-link" aria-label="📖 小练习：信号与跳跃机制复习题的直接链接" title="📖 小练习：信号与跳跃机制复习题的直接链接">​</a></h2>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="1-单选题基础理解">1. 单选题（基础理解）<a href="#1-单选题基础理解" class="hash-link" aria-label="1. 单选题（基础理解）的直接链接" title="1. 单选题（基础理解）的直接链接">​</a></h3>
+<p><strong>Q1</strong>：在 Godot 中，哪个节点主要负责「发出按下信号」？</p>
+<ul>
+<li>A. Sprite2D</li>
+<li>B. Button</li>
+<li>C. Player</li>
+<li>D. Node2D</li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>✅ 答案</summary><div><div class="collapsibleContent_i85q"> 
+    <!-- --> 
+    <p>B. Button 发出 pressed() 信号，通知其他节点。</p> 
+</div></div></details>
+<hr>
+<p><strong>Q2</strong>：如果没有给 <code>Player</code> 节点添加 <code>CollisionShape2D</code>，可能会出现什么问题？</p>
+<ul>
+<li>A. 角色无法跳跃</li>
+<li>B. 角色无法移动</li>
+<li>C. 角色无  法检测到地面，跳跃后会一直下落</li>
+<li>D. 游戏崩溃</li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>✅ 答案</summary><div><div class="collapsibleContent_i85q">
+    <!-- --> 
+    <p>C. 角色可以跳，但无法检测到地面，会不断下落，不会碰撞到地面。 </p> 
+</div></div></details>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="2-判断题理解应用">2. 判断题（理解应用）<a href="#2-判断题理解应用" class="hash-link" aria-label="2. 判断题（理解应用）的直接链接" title="2. 判断题（理解应用）的直接链接">​</a></h3>
+<p><strong>Q3</strong>：在 Godot 2D 世界中，Y轴向上的方向是负的。</p>
+<ul>
+<li>✅ 正确</li>
+<li>❌ 错误</li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>✅ 答案</summary><div><div class="collapsibleContent_i85q"> 
+    <!-- --> 
+    <p>✅ 正确。Godot 的2D坐标系是：右（X+），下（Y+），上是负方向。</p> </div></div></details>
+<hr>
+<p><strong>Q4</strong>：<code>MoveAndSlide()</code> 函数可以在没有 Velocity 赋值的情况下自己完成角色运动。</p>
+<ul>
+<li>✅ 正确</li>
+<li>❌ 错误</li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>✅ 答案</summary><div><div class="collapsibleContent_i85q"> 
+    <!-- -->
+    <p>❌ 错误。MoveAndSlide() 依赖 Velocity。没有赋 Velocity，角色不会动。</p> </div></div></details>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="3-简答题加深理解">3. 简答题（加深理解）<a href="#3-简答题加深理解" class="hash-link" aria-label="3. 简答题（加深理解）的直接链接" title="3. 简答题（加深理解）的直接链接">​</a></h3>
+<p><strong>Q5</strong>：简要说明为什么在连接信号时，Player 节点必须挂载脚本？</p>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>✅ 答案参考</summary><div><div class="collapsibleContent_i85q"> 
+    <!-- -->
+    <p> 因为 Godot 信号机制需要在接收节点中生成回调方法（例如 _on_jump_button_pressed()）， 而没有脚本就无法创建方法，自然也无法响应信号事件。 </p> 
+</div></div></details>
+<p><strong>Q6</strong>：如果想让角色只在落地时才能跳跃，需要在跳跃代码中增加什么逻辑判断？（提示：关键词 IsOnFloor,自行扩展）</p>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>✅ 答案参考</summary><div><div class="collapsibleContent_i85q">
+<!-- -->
+<p>应该在 _on_jump_button_pressed() 方法中，加一层判断：</p>
+<div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#9CDCFE;--prism-background-color:#1E1E1E"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#9CDCFE;background-color:#1E1E1E"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#9CDCFE"><span class="token plain">if (IsOnFloor())</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">{</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    velocity.Y = JumpVelocity;</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">}</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p>只有当角色检测到落在地面上时，才允许跳跃，防止连续空中跳。</p>
+</div></div></details>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-进阶思考题">🧠 进阶思考题<a href="#-进阶思考题" class="hash-link" aria-label="🧠 进阶思考题的直接链接" title="🧠 进阶思考题的直接链接">​</a></h2>
+<hr>
+<p><strong>Q1</strong>. 如何实现【按住按钮不松开，角色持续跳跃】？</p>
+<p>提示：</p>
+<ul>
+<li>现在我们的 <code>_on_jump_button_pressed()</code> 只处理「按下瞬间」。</li>
+<li>如果要让角色按住键不松，就一直跳，该怎么修改？需要用什么新方法？</li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>✅ 答案参考</summary><div><div class="collapsibleContent_i85q">
+<!-- -->
+<div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#9CDCFE;--prism-background-color:#1E1E1E"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#9CDCFE;background-color:#1E1E1E"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#9CDCFE"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain"> public const float JumpVelocity = -400f;</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">public override void _PhysicsProcess(double delta)</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">{</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    Vector2 v = Velocity;              // 当前速度</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    /* 重力：不在地面就向下加速 */</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    if (!IsOnFloor())</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">        v += GetGravity() * (float)delta;</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    /* 连续跳：键被按住且角色在地面时起跳 */</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    if (Input.IsActionPressed(&quot;ui_jump&quot;) &amp;&amp; IsOnFloor())</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">        v.Y = JumpVelocity;            // 赋负值向上跳</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    Velocity = v;</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    MoveAndSlide();                    // 执行移动</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">}</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p><strong>关键点</strong></p>
+<ul>
+  <li>使用 <code>Input.IsActionPressed()</code> → 只要键持续按下，检测就会在每一帧触发。</li>
+  <li>加上 <code>IsOnFloor()</code> → 只有落地那一帧才重新起跳，避免空中无限连跳。</li>
+  <li>其余水平移动、冷却计时等功能可按需要再补；</li>
+</ul>
+</div></div></details>
+<hr>
+<p><strong>Q2</strong>. 如何实现【双段跳（Double Jump）】功能？</p>
+<p>要求：</p>
+<ul>
+<li>玩家在空中还能再跳一次</li>
+<li>只能跳两次，落地后重置</li>
+</ul>
+<p>提示：</p>
+<ul>
+<li>需要新增变量记录「跳跃次数」。</li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>✅ 答案参考</summary><div><div class="collapsibleContent_i85q">
+<!-- -->
+<p><strong>解决思路</strong>：增加一个变量 <code>jumpsLeft</code> 来记录“本轮还能跳几次”。</p>
+<ul>
+<li><p>初始值设为 <code>2</code>（双段跳）。</p></li>
+<li><p>每次检测到 <code>Input.IsActionJustPressed(&quot;ui_jump&quot;)</code> 且 <code>jumpsLeft &gt; 0</code> 时：  
+  ① 赋值 <code>JumpVelocity</code> → 起跳  
+  ② <code>jumpsLeft--</code> → 扣一次次数</p></li>
+<li><p>当角色落地（<code>IsOnFloor()</code> 为 <code>true</code>）时，把 <code>jumpsLeft</code> 重置回 <code>2</code>。</p></li>
+</ul>
+<p><strong>最小化示例代码</strong>（只演示双段跳核心逻辑）：</p>
+<div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#9CDCFE;--prism-background-color:#1E1E1E"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#9CDCFE;background-color:#1E1E1E"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#9CDCFE"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">public partial class Player : CharacterBody2D</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">{</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    public const float JumpVelocity = -400f;</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    private int jumpsLeft = 2;              // 双段跳：可跳 2 次</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    public override void _PhysicsProcess(double delta)</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    {</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">        Vector2 v = Velocity;</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">        /* 重力 */</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">        if (!IsOnFloor())</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">            v += GetGravity() * (float)delta;</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">        /* 起跳逻辑 —— 只要还有次数就能跳 */</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">        if (Input.IsActionJustPressed(&quot;ui_jump&quot;) &amp;&amp; jumpsLeft &gt; 0)</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">        {</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">            v.Y = JumpVelocity;             // 起跳</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">            jumpsLeft--;                    // 次数 -1</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">        }</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">        /* 落地后重置跳跃次数 */</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">        if (IsOnFloor())</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">            jumpsLeft = 2;</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">        Velocity = v;</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">        MoveAndSlide();</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    }</span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">}</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="复制代码到剪贴板" title="复制" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
+<p><strong>关键点</strong>：</p>
+<ul>
+<li><p><code>jumpsLeft</code> 控制最多跳两次；要三段跳只需把初始值改为 3。</p></li>
+<li><p>检测键盘用 <code>IsActionJustPressed</code>，避免长按时一帧消耗多次跳权。</p></li>
+<li><p>落地判定后立即归位，实现“着陆 → 次数刷新”。</p></li>
+</ul>
+</div></div></details>
+<p>​</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="theme-doc-footer-edit-meta-row row"><div class="col"><a href="https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/Godot/4.节点之间的通信：信号.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a></div><div class="col lastUpdated_vwxv"></div></div></footer></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/Godot/节点生命周期"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">节点生命周期</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/Godot/"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">Godot</div></a></nav></div><div style="margin-top:30px"></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#1-什么是信号signal" class="table-of-contents__link toc-highlight">1. 什么是信号（Signal）？</a></li><li><a href="#2-为什么需要信号" class="table-of-contents__link toc-highlight">2. 为什么需要信号？</a></li><li><a href="#3-godot-信号的使用步骤" class="table-of-contents__link toc-highlight">3. Godot 信号的使用步骤</a></li><li><a href="#4-最常用的内置信号" class="table-of-contents__link toc-highlight">4. 最常用的内置信号</a></li><li><a href="#5-信号实际例子结合godot界面" class="table-of-contents__link toc-highlight">5. 信号实际例子（结合Godot界面）</a><ul><li><a href="#-第一步搭建场景含角色内部结构" class="table-of-contents__link toc-highlight">📌 第一步：搭建场景（含角色内部结构）</a></li><li><a href="#-第二步用-godot-编辑器连接信号如果没有脚本就顺便创建" class="table-of-contents__link toc-highlight">📌 第二步：用 Godot 编辑器连接信号（如果没有脚本，就顺便创建）</a></li><li><a href="#-第三步在-player-脚本里填写跳跃逻辑" class="table-of-contents__link toc-highlight">📌 第三步：在 Player 脚本里填写跳跃逻辑</a></li><li><a href="#-这一套逻辑串起来是这样的" class="table-of-contents__link toc-highlight">🎯 这一套逻辑串起来是这样的：</a></li><li><a href="#运行测试" class="table-of-contents__link toc-highlight">✅运行测试</a></li></ul></li><li><a href="#-小提醒" class="table-of-contents__link toc-highlight">📚 小提醒</a></li><li><a href="#-小总结" class="table-of-contents__link toc-highlight">✅ 小总结</a></li><li><a href="#-小练习信号与跳跃机制复习题" class="table-of-contents__link toc-highlight">📖 小练习：信号与跳跃机制复习题</a><ul><li><a href="#1-单选题基础理解" class="table-of-contents__link toc-highlight">1. 单选题（基础理解）</a></li><li><a href="#2-判断题理解应用" class="table-of-contents__link toc-highlight">2. 判断题（理解应用）</a></li><li><a href="#3-简答题加深理解" class="table-of-contents__link toc-highlight">3. 简答题（加深理解）</a></li></ul></li><li><a href="#-进阶思考题" class="table-of-contents__link toc-highlight">🧠 进阶思考题</a></li></ul></div></div></div></div></main></div></div></div></div>
+</body>
+</html>
