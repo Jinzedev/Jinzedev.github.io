@@ -1,12 +1,10 @@
 ---
 title: Godot
 tags: [Godot]
-
+sidebar_position: 0
 ---
 
-Godot,Godot,Godot
+![godot](./img/icon.svg)
 
-
-
-
+godot, godot, godot启动！
 
